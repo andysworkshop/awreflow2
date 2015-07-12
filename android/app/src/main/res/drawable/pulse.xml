@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item android:drawable="@drawable/pulse11" android:duration="75" />
+  <item android:drawable="@drawable/pulse13" android:duration="75" />
+  <item android:drawable="@drawable/pulse15" android:duration="75" />
+  <item android:drawable="@drawable/pulse17" android:duration="75" />
+  <item android:drawable="@drawable/pulse19" android:duration="75" />
+  <item android:drawable="@drawable/pulse21" android:duration="75" />
+  <item android:drawable="@drawable/pulse23" android:duration="75" />
+  <item android:drawable="@drawable/pulse25" android:duration="75" />
+  <item android:drawable="@drawable/pulse23" android:duration="75" />
+  <item android:drawable="@drawable/pulse21" android:duration="75" />
+  <item android:drawable="@drawable/pulse19" android:duration="75" />
+  <item android:drawable="@drawable/pulse17" android:duration="75" />
+  <item android:drawable="@drawable/pulse15" android:duration="75" />
+  <item android:drawable="@drawable/pulse13" android:duration="75" />
+
+</animation-list>

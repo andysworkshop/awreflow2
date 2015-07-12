@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="uk.me.andybrown.awreflow2" >
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".ReflowApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/application"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+             android:screenOrientation="landscape"
+             android:name=".ReflowActivity"
+             android:label="Andy's Workshop Reflow Oven"
+             android:parentActivityName=".MainActivity" >
+          <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ReflowActivity" />
+      </activity>
+
+   </application>
+
+</manifest>

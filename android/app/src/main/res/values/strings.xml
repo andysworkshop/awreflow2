@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">Andy\'s Workshop Reflow Oven</string>
+  <string name="window_title">Reflow Oven Controller</string>
+  <string name="disconnected">Disconnected</string>
+  <string name="lead">Leaded</string>
+  <string name="leaded_title">Leaded</string>
+  <string name="leaded_text">A profile for leaded solder. The maximum temperature is 210\u00b0C.</string>
+  <string name="unleaded_title">Lead free</string>
+  <string name="unleaded_text">A profile for lead-free RoHS solder. The maximum temperature is 240\u00b0C.</string>
+  <string name="reflow_title">Reflow</string>
+  <string name="reflow_text">Start reflowing with a profile for %1$s solder.</string>
+  <string name="temperature_title">Temperature</string>
+  <string name="temperature_text">The current oven temperature is %1$d\u00b0C.</string>
+  <string name="temperature_text_error">Unable to display the temperature: %1$s.</string>
+  <string name="parameters_title">Parameters</string>
+  <string name="parameters_text">Change the proportional, integer and derivative co-efficients. Currently %1$d, %2$d and %3$d.</string>
+  <string name="settings_title">Settings</string>
+  <string name="settings_text">Set the oven zero level (%1$d), LCD backlight (%2$d) and contrast (%3$d).</string>
+  <string name="settings_unavailable">Setting unavailable until bluetooth link established.</string>
+  <string name="proportional">Proportional</string>
+  <string name="integer">Integer</string>
+  <string name="derivative">Derivative</string>
+  <string name="tracking">Tracking</string>
+  <string name="spline_curve">Spline curve</string>
+  <string name="linear">Linear</string>
+  <string name="change_value">Enter a new value:</string>
+  <string name="ready_reflow_message">Ensure that you\'ve got a reliable bluetooth link and then tap OK to start immediately.</string>
+  <string name="ready_reflow_title">Ready to reflow</string>
+  <string name="settings_unread_text">Settings have not been read from the controller.</string>
+  <string name="go_title">Start</string>
+  <string name="stop_title">Stop</string>
+  <string name="exit_title">Back</string>
+
+  <string name="completed">Completed</string>
+  <string name="user_cancel">Cancelled</string>
+  <string name="link_failed">Bluetooth link failed</string>
+  <string name="temperature_read_failed">Temperature read failed</string>
+  <string name="set_duty_cycle_failed">Set temperature failed</string>
+  <string name="temperature_sensor_failed">Temperature sensor failed</string>
+
+  <string name="backlight_label">LCD backlight</string>
+  <string name="contrast_label">LCD contrast</string>
+  <string name="oven_zero_label">Oven zero</string>
+  <string name="transmit">Transmit</string>
+
+  <string-array name="tracking_array">
+    <item>Linear</item>
+    <item>Spline curve</item>
+  </string-array>
+
+</resources>

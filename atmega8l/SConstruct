@@ -1,0 +1,107 @@
+# Andy's Workshop Reflow Controller ATMega328p firmware
+# Copyright (c) 2015 Andy Brown. http://www.andybrown.me.uk
+# Please see website for licensing terms.
+
+"""
+Usage: scons mains=<FREQUENCY> [upload]
+
+  <FREQUENCY>: 50/60.
+    50 = 50Hz mains frequency
+    60 = 60Hz mains frequency
+
+  [upload]
+    specify this option to automatically upload to
+    using avrdude to a USBASP connected MCU.
+
+Examples:
+
+  scons mains=50     // UK mains frequency
+  scons mains=60     // USA mains frequency
+
+To do a 'clean' use the -c flag
+To do a parallel build use the -jN flag
+"""
+
+import os
+
+# The triac timer runs at 128uS per tick. The triac_pulse_ticks variable defines how many ticks
+# the triac gate will be activated for. 4 = 512uS
+
+triac_pulse_ticks=4
+margin_ticks=8
+
+# get the mains frequency option
+
+mains = ARGUMENTS.get('mains')
+
+if mains=="50":
+  ticks_per_half_cycle=78
+elif mains=="60":
+  ticks_per_half_cycle=65
+else:
+  print __doc__
+  Exit(1)
+
+# source the environment
+
+env=Environment(ENV=os.environ)
+
+# compiler is avr-gcc
+
+env.Replace(CC="avr-gcc")
+env.Replace(CXX="avr-g++")
+env.Replace(PROGSUFFIX=".elf")
+
+# set up our options
+
+env.Replace(CXXFLAGS=["-mmcu=atmega8",
+                      "-Os",
+                      "-g",
+                      "-flto",
+                      "-DF_CPU=8000000",
+                      "-DTRIAC_PULSE_TICKS="+`triac_pulse_ticks`,
+                      "-DTICKS_PER_HALF_CYCLE="+`ticks_per_half_cycle`,
+                      "-DMARGIN_TICKS="+`margin_ticks`,
+                      "-DF_CPU=8000000",
+                      "-std=c++11",
+                      "-Wall",
+                      "-Werror",
+                      "-Wextra",
+                      "-pedantic-errors",
+                      "-fno-rtti",
+                      "-ffunction-sections",
+                      "-fdata-sections",
+                      "-fno-exceptions"])
+
+env.Replace(LINKFLAGS=["-Wl,-Map,awreflow2.map",
+                       "-mrelax",
+                       "-g",
+                       "-flto",
+                       "-Wl,--gc-sections",
+                       "-mmcu=atmega8"])
+
+# compile source code to .elf binary
+
+elf=env.Program("awreflow2",[Glob("*.cpp")])
+Decider('timestamp-newer')
+
+# convert elf to hex flashable image
+
+hexfile=env.Command("awreflow2.hex",elf,"avr-objcopy -j .text -j .data -O ihex $SOURCE $TARGET")
+env.Install("../bin",hexfile)
+env.Alias("install","../bin")
+
+# calculate size and generate assembly source
+
+env.Command("awreflow2.siz",elf,"avr-size $SOURCE | tee $TARGET")
+env.Command("awreflow2.lst",elf,"avr-objdump -S $SOURCE > $TARGET")
+
+# upload target uses avrdude
+
+flash_cmd="avrdude -c usbasp -p m8 -e -U flash:w:awreflow2.hex"
+fuse_cmd="avrdude -c usbasp -p m8 -e -U lfuse:w:0xD2:m -U lfuse:w:0xff:m -U hfuse:w:0xd9:m"
+
+upload=env.Alias("upload","awreflow2.hex",flash_cmd)
+fuse=env.Alias("fuse","awreflow2.hex",fuse_cmd)
+
+AlwaysBuild([upload,fuse])

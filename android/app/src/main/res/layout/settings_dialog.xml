@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/settings_dialog"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:padding="20dp"
+              android:layout_height="fill_parent">
+
+  <!-- brightness -->
+
+  <TextView
+    android:id="@+id/backlight_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:text="@string/backlight_label"
+    />
+
+  <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"
+    />
+
+  <LinearLayout android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="2dp"
+      android:src="@drawable/brightness"/>
+
+    <SeekBar
+      android:id="@+id/backlight_slider"
+      android:layout_width="300dp"
+      android:layout_weight="1"
+      android:max="100"
+      android:layout_height="wrap_content"
+      />
+
+    <TextView
+      android:id="@+id/backlight_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="0"
+      android:layout_marginLeft="10dp"
+      android:layout_gravity="center_vertical"
+      android:text="100"/>
+
+  </LinearLayout>
+
+  <!-- contrast -->
+
+  <TextView
+    android:id="@+id/contrast_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginTop="10dp"
+    android:text="@string/contrast_label"
+    />
+
+  <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"
+    />
+
+  <LinearLayout android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                >
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="5dp"
+      android:src="@drawable/contrast"/>
+
+    <SeekBar
+      android:id="@+id/contrast_slider"
+      android:layout_width="300dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:max="127"
+      />
+
+    <TextView
+      android:id="@+id/contrast_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="0"
+      android:layout_marginLeft="10dp"
+      android:layout_gravity="center_vertical"
+      android:text="100"/>
+
+  </LinearLayout>
+
+  <!-- oven zero -->
+
+  <TextView
+    android:id="@+id/oven_zero_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginTop="10dp"
+    android:text="@string/oven_zero_label"/>
+
+  <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"
+    />
+
+  <LinearLayout android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                >
+
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="4dp"
+      android:src="@drawable/oven_zero"/>
+
+    <SeekBar
+      android:id="@+id/oven_zero_slider"
+      android:layout_width="300dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      />
+
+    <TextView
+      android:id="@+id/oven_zero_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="0"
+      android:layout_marginLeft="10dp"
+      android:layout_gravity="center_vertical"
+      android:text="100"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/transmit_button"
+      android:layout_marginTop="15dp"
+      android:text="@string/transmit"/>
+
+  </LinearLayout>
+
+</LinearLayout>

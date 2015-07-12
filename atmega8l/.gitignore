@@ -1,0 +1,8 @@
+*.elf
+*.siz
+*.map
+*.lst
+*.hex
+*.o
+.sconsign.dblite
+.settings/

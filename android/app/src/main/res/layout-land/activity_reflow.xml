@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#ffffff"
+             android:keepScreenOn="true"
+             tools:context=".ReflowActivity">
+
+  <!-- horizontal layout of chart on left and buttons on right -->
+
+  <LinearLayout android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <!-- chart area on the left -->
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:layout_margin="10dp">
+
+      <uk.me.andybrown.awreflow2.Chart
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/chart"/>
+
+      <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/pulse"
+        android:visibility="invisible"
+        android:src="@drawable/pulse"
+      />
+
+    </FrameLayout>
+
+    <!-- column of buttons on the right -->
+
+    <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:padding="5dp"
+      android:layout_marginTop="5dp"
+      android:layout_marginRight="5dp"
+      android:layout_marginLeft="5dp">
+
+      <!-- start button -->
+
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/go_icon"
+        android:src="@drawable/go"
+        android:onClick="onClickStart"/>
+
+      <!-- stop button -->
+
+      <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/go_icon"
+        android:id="@+id/stop_icon"
+        android:src="@drawable/stop_disabled"
+        android:onClick="onClickStop"/>
+
+      <!-- exit button -->
+
+      <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stop_icon"
+        android:clickable="true"
+        android:onClick="onClickExit"
+        android:id="@+id/exit_icon"
+        android:src="@drawable/exit"/>
+
+      <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <!-- current temperature -->
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/temperature_text_label"
+          android:textSize="18dp"
+          android:textColor="#FF808080"
+          android:text="celsius"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@id/temperature_text"
+          android:layout_below="@id/temperature_text_label"
+          android:textSize="22dp"
+          android:textColor="#FF000000"
+          android:text=""/>
+
+        <!-- current time -->
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/time_text_label"
+          android:layout_below="@+id/temperature_text"
+          android:textSize="18dp"
+          android:textColor="#FF808080"
+          android:visibility="invisible"
+          android:text="time"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/time_text"
+          android:layout_below="@id/time_text_label"
+          android:textSize="22dp"
+          android:textColor="#FF000000"
+          android:visibility="invisible"
+          android:text=""/>
+
+        <!-- adjustment -->
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/adjustment_text_label"
+          android:layout_below="@id/time_text"
+          android:textSize="18dp"
+          android:textColor="#FF808080"
+          android:visibility="invisible"
+          android:text="error"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/adjustment_text"
+          android:layout_below="@id/adjustment_text_label"
+          android:textSize="22dp"
+          android:textColor="#FF000000"
+          android:visibility="invisible"
+          android:text=""/>
+
+        <!-- power -->
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/power_text_label"
+          android:layout_below="@+id/adjustment_text"
+          android:textSize="18dp"
+          android:textColor="#FF808080"
+          android:visibility="invisible"
+          android:text="power"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/power_text"
+          android:layout_below="@+id/power_text_label"
+          android:textSize="22dp"
+          android:textColor="#FF000000"
+          android:visibility="invisible"
+          android:text=""/>
+
+      </RelativeLayout>
+
+    </RelativeLayout>
+
+  </LinearLayout>
+
+</FrameLayout>

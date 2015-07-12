@@ -1,0 +1,413 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="#ffffff"
+  android:keepScreenOn="true"
+  tools:context=".MainActivity">
+
+  <!-- vertical rows -->
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- logo -->
+
+    <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:background="#52392d"
+      android:padding="10dp"
+      android:orientation="horizontal">
+
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:padding="0dp"/>
+
+    </LinearLayout>
+
+    <ScrollView
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent">
+
+      <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <!-- leaded -->
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:onClick="onClickLead"
+          android:padding="4dp">
+
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+           <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/leaded_image"
+             android:src="@drawable/factory"
+             android:paddingRight="10dp"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/leaded_title"
+              android:layout_toRightOf="@id/leaded_image"
+              android:text="@string/leaded_title"
+              android:textStyle="bold"
+              android:textColor="#000000"/>
+
+            <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="14dp"
+              android:id="@+id/leaded_checked"
+              android:layout_toRightOf="@+id/leaded_title"
+              android:src="@drawable/checkmark"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_toRightOf="@id/leaded_image"
+              android:layout_below="@id/leaded_title"
+              android:text="@string/leaded_text"
+              android:textSize="12dp"
+              android:textColor="#808080"/>
+
+          </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- lead free -->
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:onClick="onClickUnleaded"
+          android:padding="4dp">
+
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/unleaded_image"
+              android:src="@drawable/recycle"
+              android:paddingRight="10dp"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/unleaded_title"
+              android:layout_toRightOf="@id/unleaded_image"
+              android:text="@string/unleaded_title"
+              android:textStyle="bold"
+              android:textColor="#000000"/>
+
+            <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="14dp"
+              android:id="@+id/unleaded_checked"
+              android:layout_toRightOf="@+id/unleaded_title"
+              android:src="@drawable/checkmark"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_toRightOf="@id/unleaded_image"
+              android:layout_below="@id/unleaded_title"
+              android:text="@string/unleaded_text"
+              android:textSize="12dp"
+              android:textColor="#808080"/>
+
+          </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- reflow -->
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:onClick="onClickReflow"
+          android:padding="4dp">
+
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/reflow_image"
+              android:src="@drawable/oven"
+              android:paddingRight="10dp"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/reflow_title"
+              android:layout_toRightOf="@id/reflow_image"
+              android:text="@string/reflow_title"
+              android:textStyle="bold"
+              android:textColor="#000000"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_toRightOf="@id/reflow_image"
+              android:layout_below="@id/reflow_title"
+              android:id="@+id/reflow_text"
+              android:text="@string/reflow_text"
+              android:textSize="12dp"
+              android:textColor="#808080"/>
+
+          </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- temperature -->
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:padding="4dp">
+
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/temperature_image"
+              android:src="@drawable/temperature"
+              android:paddingRight="10dp"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/temperature_title"
+              android:layout_toRightOf="@id/temperature_image"
+              android:text="@string/temperature_title"
+              android:textStyle="bold"
+              android:textColor="#000000"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_toRightOf="@id/temperature_image"
+              android:layout_below="@id/temperature_title"
+              android:id="@+id/temperature_text"
+              android:text="Waiting for communications link."
+              android:textSize="12dp"
+              android:textColor="#808080"/>
+
+          </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- parameters -->
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:padding="4dp">
+
+          <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/parameters_image"
+            android:src="@drawable/parameters"
+            android:paddingRight="10dp"/>
+
+          <!-- container for the two panels -->
+
+          <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- this is the summary -->
+
+            <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:id="@+id/parameters_summary"
+              android:onClick="onClickParametersPanel">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/parameters_title"
+                android:text="@string/parameters_title"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/parameters_text"
+                android:text="@string/parameters_text"
+                android:textSize="12dp"
+                android:textColor="#808080"/>
+
+            </LinearLayout>
+
+            <!-- this is the editor -->
+
+            <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:id="@+id/parameters_editor">
+
+              <!-- proportional group -->
+
+              <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:onClick="onClickProportional">
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/proportional_title"
+                  android:text="@string/proportional"
+                  android:textStyle="bold"
+                  android:textColor="#000000"/>
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/proportional_value"
+                  android:text="0"
+                  android:textSize="20dp"
+                  android:textColor="#808080"/>
+              </LinearLayout>
+
+              <!-- integer group -->
+
+              <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:onClick="onClickInteger">
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/integer_title"
+                  android:text="@string/integer"
+                  android:textStyle="bold"
+                  android:textColor="#000000"/>
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/integer_value"
+                  android:text="0"
+                  android:textSize="20dp"
+                  android:textColor="#808080"/>
+              </LinearLayout>
+
+              <!-- derivative group -->
+
+              <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:onClick="onClickDerivative">
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/derivative_title"
+                  android:text="@string/derivative"
+                  android:textStyle="bold"
+                  android:textColor="#000000"/>
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/derivative_value"
+                  android:text="0"
+                  android:textSize="20dp"
+                  android:textColor="#808080"/>
+              </LinearLayout>
+
+              <!-- Tracking group -->
+
+              <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:onClick="onClickTracking">
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/tracking_title"
+                  android:text="@string/tracking"
+                  android:textStyle="bold"
+                  android:textColor="#000000"/>
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/tracking_value"
+                  android:text="Cubic curve"
+                  android:textSize="20dp"
+                  android:textColor="#808080"/>
+              </LinearLayout>
+
+              <!-- Settings group -->
+
+              <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:onClick="onClickSettings">
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/settings_title"
+                  android:text="@string/settings_title"
+                  android:textStyle="bold"
+                  android:textColor="#000000"/>
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/settings_text"
+                  android:text=""
+                  android:textSize="12dp"
+                  android:textColor="#808080"/>
+
+              </LinearLayout>
+
+            </LinearLayout>
+          </FrameLayout>
+        </LinearLayout>
+      </LinearLayout>
+    </ScrollView>
+  </LinearLayout>
+</FrameLayout>
