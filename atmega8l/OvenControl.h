@@ -80,9 +80,9 @@ namespace awreflow {
 
     // percentages between 1 and 99 inclusive use the lookup table to translate a linear
     // demand for power to a position on the phase angle axis
-    
+
     if(percentage>0 && percentage<100)
-      percentage=pgm_read_byte(&LookupTable[percentage]);
+      percentage=pgm_read_byte(&LookupTable[percentage-1]);
 
     // read the percentage considered to be zero power (an oven calibration setting)
     // and convert to the number of ticks
