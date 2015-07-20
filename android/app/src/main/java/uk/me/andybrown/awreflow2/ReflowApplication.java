@@ -31,8 +31,8 @@ public class ReflowApplication extends Application implements Runnable {
   private static final byte ACK = 0;
 
   private static final int LINK_CHECK_INTERVAL = 3000;
-  private static final int REFLOW_GET_TEMPERATURE_INTERVAL = 1000;
-  private static final int NON_REFLOW_GET_TEMPERATURE_INTERVAL = 3000;
+  private static final int REFLOW_GET_TEMPERATURE_INTERVAL = 250;
+  private static final int NON_REFLOW_GET_TEMPERATURE_INTERVAL = 2000;
 
   /*
    * Bluetooth adaptor and receiver
@@ -140,7 +140,7 @@ public class ReflowApplication extends Application implements Runnable {
   public void run() {
 
     long lastLinkCheckTime,lastTemperatureCheckTime;
-    int percent,temperaturePollingInterval;
+    int percent;
 
     lastLinkCheckTime=lastTemperatureCheckTime=0;
 
@@ -148,9 +148,9 @@ public class ReflowApplication extends Application implements Runnable {
 
       try {
 
-        // sleep for a second
+        // sleep for the lowest period
 
-        Thread.sleep(1000);
+        Thread.sleep(REFLOW_GET_TEMPERATURE_INTERVAL);
 
         // pass to the reflow job
 
@@ -182,13 +182,23 @@ public class ReflowApplication extends Application implements Runnable {
 
           lastTemperatureCheckTime=System.currentTimeMillis();
         }
-        else
-        {
-          temperaturePollingInterval=_reflowJob==null ? REFLOW_GET_TEMPERATURE_INTERVAL : NON_REFLOW_GET_TEMPERATURE_INTERVAL;
+        else {
 
-          if(System.currentTimeMillis()-lastTemperatureCheckTime>temperaturePollingInterval) {
+          if(_reflowJob.getState()==ReflowJob.State.STARTED) {
+
+            // reflow job in progress. always call for a new temperature
+
             readTemperatureCommand();
             lastTemperatureCheckTime=System.currentTimeMillis();
+          }
+          else {
+
+            // no reflow job in progress - reduce polling time to 2s
+
+            if(System.currentTimeMillis()-lastTemperatureCheckTime>NON_REFLOW_GET_TEMPERATURE_INTERVAL) {
+              readTemperatureCommand();
+              lastTemperatureCheckTime=System.currentTimeMillis();
+            }
           }
         }
 
