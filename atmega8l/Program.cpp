@@ -126,6 +126,10 @@ namespace awreflow {
     // enable global interrupt
 
     sei();
+
+    // upgrade the HC-06 baud rate to 38400
+
+    _bluetooth.upgradeBaudRate();
     
     // set the backlight
 
