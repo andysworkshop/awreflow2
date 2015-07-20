@@ -16,6 +16,9 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 
 /*
  * Custom view class for drawing the chart
@@ -34,9 +37,7 @@ public class Chart extends View {
   protected int _width;
   protected int _height;
 
-  protected int[] _progressSeconds;
-  protected double[] _progressValues;
-  protected int _lastProgress;
+  protected TreeMap<Integer,Double> _progressValues=new TreeMap<>();
 
   protected Paint _axisPaint;
   protected Paint _numbersPaint;
@@ -63,8 +64,6 @@ public class Chart extends View {
   }
 
   protected void init() {
-
-    _lastProgress=-1;
 
     // create the graphics objects
 
@@ -105,14 +104,7 @@ public class Chart extends View {
    */
 
   public void clearProgress() {
-
-    int count;
-
-    count=_profile.getPoints(_trackingType).length;
-
-    _progressSeconds=new int[count];
-    _progressValues=new double[count];
-    _lastProgress=-1;
+    _progressValues.clear();
   }
 
 
@@ -122,15 +114,7 @@ public class Chart extends View {
    */
 
   public void updateProgress(int seconds,double temperature) {
-
-    // the updates may not arrive at 1-second intervals
-
-    _lastProgress++;
-
-    if(_lastProgress<_progressValues.length) {
-      _progressValues[_lastProgress]=temperature;
-      _progressSeconds[_lastProgress]=seconds;
-    }
+    _progressValues.put(seconds,temperature);
   }
 
 
@@ -215,25 +199,32 @@ public class Chart extends View {
 
     Point p;
     Path path;
-    int i;
+    boolean first;
 
     // check for not started
 
-    if(_lastProgress==-1)
+    if(_progressValues.size()==0)
       return;
 
     // plot the points on the curve into a path object
 
     path=new Path();
-    p=reflowPointToChart(_progressSeconds[0],_progressValues[0]);
-    path.moveTo(p.x,p.y);
 
-    for(i=1;i<=_lastProgress;i++) {
+    // iterate the map of seconds to temperature
+
+    first=true;
+    for(Map.Entry<Integer,Double> e : _progressValues.entrySet()) {
 
       // add the point to the path
 
-      p=reflowPointToChart(_progressSeconds[i],_progressValues[i]);
-      path.lineTo(p.x,p.y);
+      p=reflowPointToChart(e.getKey(),e.getValue());
+
+      if(first) {
+        path.moveTo(p.x,p.y);
+        first=false;
+      }
+      else
+        path.lineTo(p.x,p.y);
     }
 
     // draw the path on to the canvas
