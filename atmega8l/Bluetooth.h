@@ -34,10 +34,7 @@ namespace awreflow {
 
     protected:
       bool isValidCommand(Command c) const;
-
-    public:
-      Command getCommandReceived();
-      uint8_t getSingleByteParameter() const;
+      void sendATCommand(const char *command) const;
 
     public:
       Bluetooth();
@@ -45,6 +42,9 @@ namespace awreflow {
       bool readByte(uint8_t& b) const;
 
       void writeReply(Acknowledge ackStatus,const void *data,uint8_t dataSize);
+      Command getCommandReceived();
+      uint8_t getSingleByteParameter() const;
+      void upgradeBaudRate() const;
   };
 
 
@@ -63,8 +63,51 @@ namespace awreflow {
     UBRRL=51;
 
     UCSRA=0;
-    UCSRB=(1 << RXEN) | (1 << TXEN);       // enable RX, TX
+    UCSRB=(1 << RXEN) | (1 << TXEN);                      // enable RX, TX
     UCSRC=(1 << URSEL) | (1 << UCSZ1) | (1 << UCSZ0);     // 8-N-1
+  }
+
+
+  /*
+   * Upgrade the HC-06 baud rate to 38400
+   */
+
+  inline void Bluetooth::upgradeBaudRate() const {
+
+    MillisecondTimer::delay(500);
+
+    // send AT commands to the HC-06
+
+    sendATCommand("AT\r\n");
+    sendATCommand("AT+BAUD6\r\n");    // 38400 baud
+
+    // reconfigure the AVR port
+
+    UCSRB=0;                              // disable TX/RX
+    UBRRL=12;                             // 38400 baud
+    UCSRB=(1 << RXEN) | (1 << TXEN);      // enable RX, TX
+  }
+
+
+  /*
+   * Send an AT command to the adaptor
+   */
+
+  inline void Bluetooth::sendATCommand(const char *command) const {
+
+    const char *ptr;
+
+    // send the string
+
+    for(ptr=command;*ptr;ptr++) {
+      while(!(UCSRA & (1 << UDRE)));
+      UDR=*ptr;
+    }
+
+    // wait for completion then delay 1/10s
+
+    while(!(UCSRA & (1 << UDRE)));
+    MillisecondTimer::delay(100);
   }
 
 

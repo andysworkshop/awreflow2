@@ -51,7 +51,7 @@ namespace awreflow {
     if(!_temperatureSensor.loop())
       return; 
 
-    // get the last reading. we have 1 second to process it before the sensor takes the SPI bus
+    // get the last reading. we have 200ms to process it before the sensor takes the SPI bus
 
     const TemperatureSensor::Response& lastTemperature(_temperatureSensor.getLastTemperature());
 

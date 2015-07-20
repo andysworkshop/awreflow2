@@ -32,6 +32,11 @@ namespace awreflow {
         Status status;
       };
 
+    protected:
+      enum {
+        POLL_INTERVAL = 200       // interval between polling the sensor
+      };
+
       uint32_t _lastTemperatureTime;
       TemperatureSensor::Response _lastTemperature;
 
@@ -70,7 +75,7 @@ namespace awreflow {
 
     // if ready then process the raw response
 
-    if(MillisecondTimer::hasTimedOut(_lastTemperatureTime,500)) {
+    if(MillisecondTimer::hasTimedOut(_lastTemperatureTime,POLL_INTERVAL)) {
 
       // bring CS low
 
