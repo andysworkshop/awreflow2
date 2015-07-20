@@ -74,6 +74,7 @@ namespace awreflow {
 
   inline void Bluetooth::upgradeBaudRate() const {
 
+#if 0
     MillisecondTimer::delay(500);
 
     // send AT commands to the HC-06
@@ -86,6 +87,7 @@ namespace awreflow {
     UCSRB=0;                              // disable TX/RX
     UBRRL=12;                             // 38400 baud
     UCSRB=(1 << RXEN) | (1 << TXEN);      // enable RX, TX
+#endif
   }
 
 
