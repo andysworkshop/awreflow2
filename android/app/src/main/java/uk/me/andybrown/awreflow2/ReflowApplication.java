@@ -207,7 +207,7 @@ public class ReflowApplication extends Application implements Runnable {
         if(_newSettings!=null) {
 
           try {
-            setOvenZeroCommand(_newSettings[0]);
+            setSensorOffsetCommand(_newSettings[0]);
             setBacklightCommand(_newSettings[1]);
             setContrastCommand(_newSettings[2]);
 
@@ -350,11 +350,11 @@ public class ReflowApplication extends Application implements Runnable {
 
 
   /*
-   * Set the oven zero
+   * Set the sensor offset
    */
 
-  protected void setOvenZeroCommand(int zero) throws Exception {
-    setSettingsCommand(CommandId.SET_OVEN_ZERO,zero);
+  protected void setSensorOffsetCommand(int offset) throws Exception {
+    setSettingsCommand(CommandId.SET_SENSOR_OFFSET,offset);
   }
 
   /*

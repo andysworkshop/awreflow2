@@ -99,15 +99,15 @@
 
   </LinearLayout>
 
-  <!-- oven zero -->
+  <!-- sensor offset -->
 
   <TextView
-    android:id="@+id/oven_zero_label"
+    android:id="@+id/sensor_offset_label"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:layout_marginTop="10dp"
-    android:text="@string/oven_zero_label"/>
+    android:text="@string/sensor_offset_label"/>
 
   <View
     android:layout_width="fill_parent"
@@ -128,20 +128,20 @@
       android:src="@drawable/oven_zero"/>
 
     <SeekBar
-      android:id="@+id/oven_zero_slider"
+      android:id="@+id/sensor_offset_slider"
       android:layout_width="300dp"
       android:layout_weight="1"
       android:layout_height="wrap_content"
       />
 
     <TextView
-      android:id="@+id/oven_zero_value"
+      android:id="@+id/sensor_offset_value"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_weight="0"
       android:layout_marginLeft="10dp"
       android:layout_gravity="center_vertical"
-      android:text="100"/>
+      android:text="-99"/>
 
   </LinearLayout>
 

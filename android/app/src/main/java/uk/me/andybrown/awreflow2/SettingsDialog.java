@@ -1,6 +1,5 @@
 package uk.me.andybrown.awreflow2;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -62,26 +61,30 @@ public class SettingsDialog {
 
   protected void setListeners(Dialog dlg) {
 
-    final SeekBar brightness,contrast,zero;
+    final SeekBar brightness,contrast,offset;
     Button transmit;
 
     // set the initial values
 
     brightness=(SeekBar)dlg.findViewById(R.id.backlight_slider);
     contrast=(SeekBar)dlg.findViewById(R.id.contrast_slider);
-    zero=(SeekBar)dlg.findViewById(R.id.oven_zero_slider);
+    offset=(SeekBar)dlg.findViewById(R.id.sensor_offset_slider);
+
+    offset.setMax(99+99);       // range is -99 to +99
+    contrast.setMax(100);
+    brightness.setMax(100);
 
     brightness.setProgress(_mainActivity.getLcdBacklight());
     contrast.setProgress(_mainActivity.getLcdContrast());
-    zero.setProgress(_mainActivity.getOvenZero());
+    offset.setProgress(_mainActivity.getSensorOffset()+99);   // bump up to positive
 
     ((TextView)dlg.findViewById(R.id.backlight_value)).setText(Integer.toString(_mainActivity.getLcdBacklight()));
     ((TextView)dlg.findViewById(R.id.contrast_value)).setText(Integer.toString(_mainActivity.getLcdContrast()));
-    ((TextView)dlg.findViewById(R.id.oven_zero_value)).setText(Integer.toString(_mainActivity.getOvenZero()));
+    ((TextView)dlg.findViewById(R.id.sensor_offset_value)).setText(Integer.toString(_mainActivity.getSensorOffset()));
 
-    linkSlider(dlg,brightness,R.id.backlight_value);
-    linkSlider(dlg,contrast,R.id.contrast_value);
-    linkSlider(dlg,zero,R.id.oven_zero_value);
+    linkSlider(dlg,brightness,R.id.backlight_value,0);
+    linkSlider(dlg,contrast,R.id.contrast_value,0);
+    linkSlider(dlg,offset,R.id.sensor_offset_value,99);
 
     transmit=(Button)dlg.findViewById(R.id.transmit_button);
     transmit.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +92,7 @@ public class SettingsDialog {
       @Override
       public void onClick(View v) {
 
-        int b,c,z;
+        int b,c,o;
         byte[] data;
         Intent intent;
 
@@ -97,13 +100,13 @@ public class SettingsDialog {
 
         b=brightness.getProgress();
         c=contrast.getProgress();
-        z=zero.getProgress();
+        o=offset.getProgress()-99;
 
         // serialize the payload
 
         data=new byte[3];
 
-        data[0]=(byte)z;      // all values are 7-bit
+        data[0]=(byte)o;      // all values are 7-bit
         data[1]=(byte)b;
         data[2]=(byte)c;
 
@@ -122,7 +125,7 @@ public class SettingsDialog {
    * link progress change to number
    */
 
-  protected void linkSlider(Dialog dlg,SeekBar slider,int numberId) {
+  protected void linkSlider(Dialog dlg,SeekBar slider,int numberId,final int offset) {
 
     final TextView tv;
 
@@ -132,7 +135,7 @@ public class SettingsDialog {
 
       @Override
       public void onProgressChanged(SeekBar seekBar,int progress,boolean fromUser) {
-        tv.setText(Integer.toString(progress));
+        tv.setText(Integer.toString(progress-offset));
       }
 
       @Override public void onStartTrackingTouch(SeekBar seekBar) {}

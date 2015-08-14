@@ -47,7 +47,7 @@ public class MainActivity extends BluetoothActivity {
    * settings values read when the link is established
    */
 
-  volatile protected int _ovenZero;
+  volatile protected int _sensorOffset;
   volatile protected int _lcdBacklight;
   volatile protected int _lcdContrast;
 
@@ -83,9 +83,9 @@ public class MainActivity extends BluetoothActivity {
 
     // set the tracking value and settings
 
-    _ovenZero=-1;
-    _lcdBacklight=-1;
-    _lcdContrast=-1;
+    _sensorOffset=-999;
+    _lcdBacklight=-999;
+    _lcdContrast=-999;
 
     setTrackingValue();
     setSettingsValue();
@@ -262,7 +262,7 @@ public class MainActivity extends BluetoothActivity {
     res=getResources();
 
     if(hasSettings())
-      str=String.format(res.getString(R.string.settings_text),_ovenZero,_lcdBacklight,_lcdContrast);
+      str=String.format(res.getString(R.string.settings_text),_sensorOffset,_lcdBacklight,_lcdContrast);
     else
       str=res.getString(R.string.settings_unavailable);
 
@@ -277,7 +277,7 @@ public class MainActivity extends BluetoothActivity {
    */
 
   protected boolean hasSettings() {
-    return _ovenZero!=-1;
+    return _sensorOffset!=-999;
   }
 
 
@@ -730,7 +730,7 @@ public class MainActivity extends BluetoothActivity {
 
   /*
    * Received the 3-byte settings from the controller:
-   *   [0] = oven zero percentage
+   *   [0] = sensor offset
    *   [1] = LCD backlight percentage
    *   [2] = LCD contrast setting (0..127)
    */
@@ -739,7 +739,7 @@ public class MainActivity extends BluetoothActivity {
 
     // these 3 settings are 7-bit values so no special treatment necessary when promoting to int
 
-    _ovenZero=settings[0];
+    _sensorOffset=settings[0];
     _lcdBacklight=settings[1];
     _lcdContrast=settings[2];
 
@@ -788,5 +788,5 @@ public class MainActivity extends BluetoothActivity {
 
   public int getLcdBacklight() { return _lcdBacklight; }
   public int getLcdContrast() { return _lcdContrast; }
-  public int getOvenZero() { return _ovenZero; }
+  public int getSensorOffset() { return _sensorOffset; }
 }

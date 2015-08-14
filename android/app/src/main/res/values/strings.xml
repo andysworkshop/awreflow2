@@ -17,7 +17,7 @@
   <string name="parameters_title">Parameters</string>
   <string name="parameters_text">Change the proportional, integer and derivative co-efficients. Currently %1$d, %2$d and %3$d.</string>
   <string name="settings_title">Settings</string>
-  <string name="settings_text">Set the oven zero level (%1$d), LCD backlight (%2$d) and contrast (%3$d).</string>
+  <string name="settings_text">Set the sensor offset (%1$d), LCD backlight (%2$d) and contrast (%3$d).</string>
   <string name="settings_unavailable">Setting unavailable until bluetooth link established.</string>
   <string name="proportional">Proportional</string>
   <string name="integer">Integer</string>
@@ -42,7 +42,7 @@
 
   <string name="backlight_label">LCD backlight</string>
   <string name="contrast_label">LCD contrast</string>
-  <string name="oven_zero_label">Oven zero</string>
+  <string name="sensor_offset_label">Temperature sensor offset</string>
   <string name="transmit">Transmit</string>
 
   <string name="vcc_short_fault">short to VCC</string>
