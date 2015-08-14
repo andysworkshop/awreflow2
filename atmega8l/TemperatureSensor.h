@@ -147,6 +147,10 @@ namespace awreflow {
 
       _lastTemperature.celsius=value/4;
       _lastTemperature.status=Status::OK;
+
+      // add on the constant user-defined offset
+
+      _lastTemperature.celsius+=Eeprom::Reader::sensorOffset();
     } 
   }
 }

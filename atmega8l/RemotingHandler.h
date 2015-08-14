@@ -27,7 +27,7 @@ namespace awreflow {
       void processNextCommand();
       void readSettings() const;
       bool setDutyCycleCommand(uint8_t dutyCycle) const;
-      bool setOvenZero(uint8_t zero) const;
+      bool setSensorOffset(int8_t offset) const;
       bool setLcdBacklight(uint8_t backlight) const;
       bool setLcdContrast(uint8_t contrast) const;
 
@@ -62,7 +62,7 @@ namespace awreflow {
 
     // turn off the oven and the active light
 
-    _oven.setDutyCycle(0,false);
+    _oven.setDutyCycle(0);
     GpioPairedStatus::reset();
   }
 
@@ -142,8 +142,8 @@ namespace awreflow {
         ok=setDutyCycleCommand(parameter);
         break;
 
-      case Command::SET_OVEN_ZERO:
-        ok=setOvenZero(parameter);
+      case Command::SET_SENSOR_OFFSET:
+        ok=setSensorOffset(static_cast<int8_t>(parameter));
         break;
 
       case Command::SET_LCD_BACKLIGHT:
@@ -182,27 +182,22 @@ namespace awreflow {
     if(dutyCycle>100)
       return false;
     else {
-      _oven.setDutyCycle(dutyCycle,false);
+      _oven.setDutyCycle(dutyCycle);
       return true;
     }
   }
 
 
   /*
-   * Store the oven zero calibration setting
+   * Store the sensor offset value in degrees C
    */
 
-  inline bool RemotingHandler::setOvenZero(uint8_t zero) const {
+  inline bool RemotingHandler::setSensorOffset(int8_t offset) const {
 
-    if(zero>100)
-      return false;
-    else {
+    // store the value
 
-      // store the value
-
-      Eeprom::Writer::zeroPercentage(zero);
-      return true;
-    }
+    Eeprom::Writer::sensorOffset(offset);
+    return true;
   }
 
 
@@ -256,7 +251,7 @@ namespace awreflow {
 
     // it's a 3-byte response with the requested codes
 
-    response[0]=Eeprom::Reader::zeroPercentage();
+    response[0]=Eeprom::Reader::sensorOffset();
     response[1]=Eeprom::Reader::lcdBacklight();
     response[2]=Eeprom::Reader::lcdContrast();
 

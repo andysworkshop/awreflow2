@@ -46,6 +46,7 @@ namespace awreflow {
       static void writeCharacter(uint8_t c,bool inverted);
       static void writeLargeTemperature(uint8_t x,uint8_t y,uint16_t temperature);
       static void writeLargeNumber(uint8_t x,uint8_t y,uint16_t number);
+      static void writeLargeSignedNumber(uint8_t x,uint8_t y,int16_t number);
       static void writeLargeDigit(uint8_t x,uint8_t y,uint8_t number);
 
       static void setBacklight(uint8_t percent);
@@ -174,6 +175,29 @@ namespace awreflow {
     writeLargeNumber(x,y,number);
     writeLargeDigit(x+36,y,11);      // degree symbol
     writeLargeDigit(x+48,y,12);      // upper case C
+  }
+
+
+  /*
+   * Write a number in the large font that can be signed
+   */
+
+  inline void Nokia5110::writeLargeSignedNumber(uint8_t x,uint8_t y,int16_t number) {
+
+    uint8_t offset;
+
+    // deal with the sign first
+
+    if(number<0) {
+      writeLargeDigit(x,y,13);      // minus sign
+      offset=12;
+    }
+    else
+      offset=0;
+
+    // carry on to write the number
+    
+    writeLargeNumber(x+offset,y,number);
   }
 
 

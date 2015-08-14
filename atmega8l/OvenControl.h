@@ -35,7 +35,7 @@ namespace awreflow {
       void on() const;
       void off() const;
 
-      void setDutyCycle(uint8_t percentage,bool overrideZeroTicks);
+      void setDutyCycle(uint8_t percentage);
 
       void zeroCrossingHandler();
       void timerComparatorHandler() const;
@@ -70,13 +70,12 @@ namespace awreflow {
 
 
   /*
-   * Set a new duty cycle percentage. The zero calibration value can be overriden for the
-   * case where you are calibrating.
+   * Set a new duty cycle percentage.
    */
 
-  inline void OvenControl::setDutyCycle(uint8_t percentage,bool overrideZeroTicks) {
+  inline void OvenControl::setDutyCycle(uint8_t percentage) {
 
-    uint16_t newCounter,zeroTicks,zeroPercentage;
+    uint16_t newCounter;
 
     // percentages between 1 and 99 inclusive use the lookup table to translate a linear
     // demand for power to a position on the phase angle axis
@@ -84,19 +83,9 @@ namespace awreflow {
     if(percentage>0 && percentage<100)
       percentage=pgm_read_byte(&LookupTable[percentage-1]);
 
-    // read the percentage considered to be zero power (an oven calibration setting)
-    // and convert to the number of ticks
-
-    if(overrideZeroTicks)
-      zeroTicks=0;
-    else {
-      zeroPercentage=Eeprom::Reader::zeroPercentage();
-      zeroTicks=(zeroPercentage*TICKS_PER_HALF_CYCLE)/100;
-    }
-
     // calculate the new counter value
 
-    newCounter=((TICKS_PER_HALF_CYCLE-zeroTicks-MARGIN_TICKS-TRIAC_PULSE_TICKS)*(100-percentage))/100;
+    newCounter=((TICKS_PER_HALF_CYCLE-MARGIN_TICKS-TRIAC_PULSE_TICKS)*(100-percentage))/100;
 
     // set the new state with interrupts off because 16-bit writes are not atomic
 

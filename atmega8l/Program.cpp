@@ -196,12 +196,12 @@ namespace awreflow {
           }
           break;
 
-        // use the encoder to select where zero is on your oven. zero is the point just before
-        // you actually get light out of the halogen lamp. Typically 20-30%.
+        // use the encoder to select an offset value for the MAX31855 sensor. This can compensate for when the
+        // sensor is off by a constant value.
 
         case ProgramState::CALIBRATING:
           {
-            CalibratingHandler handler(_encoder,_actionButton,_oven);
+            CalibratingHandler handler(_encoder,_actionButton);
             state=handler.loop();
           }
           break;

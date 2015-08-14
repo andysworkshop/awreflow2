@@ -20,7 +20,7 @@ namespace awreflow {
   const char SelectingIntegerString[] PROGMEM = "   INTEGER    ";
   const char SelectingDerivativeString[] PROGMEM = "  DERIVATIVE  ";
   const char ReflowReadyString[] PROGMEM = " REFLOW READY ";
-  const char CalibratingString[] PROGMEM = "ZERO CALIBRATE";
+  const char CalibratingString[] PROGMEM = "  TEMP OFFSET ";
   const char ReflowingString[] PROGMEM = "  REFLOWING   ";
   const char LcdOptionsString[] PROGMEM = " LCD OPTIONS  ";
   const char LcdBacklightString[] PROGMEM = "  BACKLIGHT   ";

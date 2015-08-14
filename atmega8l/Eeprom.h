@@ -26,7 +26,7 @@ namespace awreflow {
       PROPORTIONAL    = 3,     // 2 bytes
       INTEGER         = 5,     // 2 bytes
       DERIVATIVE      = 7,     // 2 bytes
-      ZERO_PERCENTAGE = 9,     // 1 byte
+      SENSOR_OFFSET   = 9,     // 1 byte
       MODE            = 10,    // 1 byte
       REFLOW_READY    = 11,    // 1 byte
       LCD_OPTIONS     = 12,    // 1 byte
@@ -59,7 +59,7 @@ namespace awreflow {
       public:
         static uint16_t magic();
         static uint16_t constant(Location l);
-        static uint8_t zeroPercentage();
+        static int8_t sensorOffset();
         static uint8_t readByte(Location l);
         static uint8_t lcdContrast();
         static uint8_t lcdBacklight();
@@ -73,7 +73,7 @@ namespace awreflow {
     struct Writer {
       static void magic();
       static void constant(Location l,uint16_t c);
-      static void zeroPercentage(uint8_t percentage);
+      static void sensorOffset(int8_t offset);
       static void lcdContrast(uint8_t contrast);
       static void lcdBacklight(uint8_t backlight);
       static void writeByte(Location l,uint8_t b);
@@ -121,11 +121,11 @@ namespace awreflow {
 
 
   /*
-   * Read the percentage that represents zero on your oven
+   * Read the constant degrees C offset to apply to readings from the MAX31855
    */
 
-  inline uint8_t Eeprom::Reader::zeroPercentage() {
-    return eeprom_read_byte(reinterpret_cast<uint8_t *>(Location::ZERO_PERCENTAGE));
+  inline int8_t Eeprom::Reader::sensorOffset() {
+    return eeprom_read_byte(reinterpret_cast<uint8_t *>(Location::SENSOR_OFFSET));
   }
 
 
@@ -175,11 +175,11 @@ namespace awreflow {
 
 
   /*
-   * Write the zero percentage value
+   * Write the sensor offset
    */
 
-  inline void Eeprom::Writer::zeroPercentage(uint8_t percentage) {
-    eeprom_write_byte(reinterpret_cast<uint8_t *>(Location::ZERO_PERCENTAGE),percentage);
+  inline void Eeprom::Writer::sensorOffset(int8_t offset) {
+    eeprom_write_byte(reinterpret_cast<uint8_t *>(Location::SENSOR_OFFSET),offset);
   }
 
 
@@ -230,7 +230,7 @@ namespace awreflow {
     Writer::constant(Location::PROPORTIONAL,5);
     Writer::constant(Location::INTEGER,3);
     Writer::constant(Location::DERIVATIVE,3);
-    Writer::zeroPercentage(0);
+    Writer::sensorOffset(0);
     Writer::lcdBacklight(100);
     Writer::lcdContrast(80);
 

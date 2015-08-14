@@ -11,7 +11,7 @@ namespace awreflow {
 
 
   /*
-   * Handler for the zero percentage calibration. Encoder +/- is used to select the
+   * Handler for the temperature sensor offset calibration. Encoder +/- is used to select the
    * new value and store it in the EEPROM.
    */
 
@@ -22,11 +22,10 @@ namespace awreflow {
     protected:
       Encoder& _encoder;
       ActionButton& _actionButton;
-      OvenControl& _oven;
 
       UiCalibratingDisplay _display;
 
-      uint8_t _value;
+      int8_t _value;
       uint32_t _lastActionTime;
 
       enum {
@@ -34,7 +33,7 @@ namespace awreflow {
       };
 
     public:
-      CalibratingHandler(Encoder& encoder,ActionButton& button,OvenControl& oven);
+      CalibratingHandler(Encoder& encoder,ActionButton& button);
 
       ProgramState loop();
   };
@@ -44,19 +43,14 @@ namespace awreflow {
    * Constructor
    */
 
-  inline CalibratingHandler::CalibratingHandler(Encoder& encoder,ActionButton& actionButton,OvenControl& oven) 
+  inline CalibratingHandler::CalibratingHandler(Encoder& encoder,ActionButton& actionButton) 
     : _encoder(encoder),
-      _actionButton(actionButton),
-      _oven(oven) {
+      _actionButton(actionButton) {
 
     // read the value from EEPROM
 
-    _value=Eeprom::Reader::zeroPercentage();
-    _display.setNumber(_value);
-
-    // switch the oven to the current value
-
-    _oven.setDutyCycle(_value,true);
+    _value=Eeprom::Reader::sensorOffset();
+    _display.setSignedNumber(_value);
 
     // set the last action timeout to now
 
@@ -83,15 +77,15 @@ namespace awreflow {
 
       if((movement=_encoder.getChange())!=0) {
 
-        if(movement<0 && -movement>static_cast<int16_t>(_value))
-          _value=0;           // decrement would go below zero 
-        else
-          _value=min<uint8_t>(100,_value+movement);
+        _value+=movement;
+        if(_value>99)
+          _value=99;
+        else if(_value<-99)
+          _value=-99;
 
-        // set the new value to the display and the oven 
+        // set the new value to the display 
 
-        _display.setNumber(_value);
-        _oven.setDutyCycle(_value,true);
+        _display.setSignedNumber(_value);
 
         // something happened
 
@@ -101,19 +95,14 @@ namespace awreflow {
       // have we timed out?
 
       if(MillisecondTimer::hasTimedOut(_lastActionTime,INACTION_TIMEOUT)) {
-        _oven.setDutyCycle(0,true);
         return ProgramState::REMOTING;
       }
 
     } while(!_actionButton.isPressed());
 
-    // oven off
-
-    _oven.setDutyCycle(0,true);
-
     // save the new state
 
-    Eeprom::Writer::zeroPercentage(_value);
+    Eeprom::Writer::sensorOffset(_value);
 
     // move back to the remoting state
 

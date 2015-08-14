@@ -151,7 +151,7 @@ namespace awreflow {
                            cmd==Command::READ_SETTINGS)) || 
 
        (_commandPos==6 && (cmd==Command::SET_DUTY_CYCLE ||
-                           cmd==Command::SET_OVEN_ZERO ||
+                           cmd==Command::SET_SENSOR_OFFSET ||
                            cmd==Command::SET_LCD_BACKLIGHT ||
                            cmd==Command::SET_LCD_CONTRAST))) {
 

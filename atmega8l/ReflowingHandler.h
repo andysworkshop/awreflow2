@@ -94,7 +94,7 @@ namespace awreflow {
 
     // turn off the oven
 
-    _oven.setDutyCycle(0,false);
+    _oven.setDutyCycle(0);
   }
 
 
@@ -181,7 +181,7 @@ namespace awreflow {
     // run the PID algorithm and set the relay PWM value from the output
 
     dutyCycle=_pid.loop(_desiredTemperature,lastTemperature.celsius);
-    _oven.setDutyCycle(dutyCycle,false);
+    _oven.setDutyCycle(dutyCycle);
 
     // update the display
 

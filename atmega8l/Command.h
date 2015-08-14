@@ -17,7 +17,7 @@ namespace awreflow {
     NONE              = 0,
     READ_TEMPERATURE  = 1,
     SET_DUTY_CYCLE    = 2,
-    SET_OVEN_ZERO     = 3,
+    SET_SENSOR_OFFSET = 3,
     SET_LCD_BACKLIGHT = 4,
     SET_LCD_CONTRAST  = 5,
     READ_SETTINGS     = 6
