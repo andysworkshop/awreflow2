@@ -45,6 +45,11 @@
   <string name="oven_zero_label">Oven zero</string>
   <string name="transmit">Transmit</string>
 
+  <string name="vcc_short_fault">short to VCC</string>
+  <string name="gnd_short_fault">short to GND</string>
+  <string name="oc_fault">open circuit</string>
+  <string name="unknown_fault">unknown</string>
+
   <string-array name="tracking_array">
     <item>Linear</item>
     <item>Spline curve</item>

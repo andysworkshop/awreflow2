@@ -35,10 +35,7 @@ public class ReflowJob {
   public enum StopReason {
     COMPLETED(R.string.completed),
     USER_CANCEL(R.string.user_cancel),
-    LINK_FAILED(R.string.link_failed),
-    TEMPERATURE_READ_FAILED(R.string.temperature_read_failed),
-    SET_DUTY_CYCLE_FAILED(R.string.set_duty_cycle_failed),
-    TEMPERATURE_SENSOR_FAILED(R.string.temperature_sensor_failed);
+    LINK_FAILED(R.string.link_failed);
 
     int _id;
 
@@ -106,14 +103,6 @@ public class ReflowJob {
 
           case CustomIntent.TEMPERATURE_RECEIVED:
             onTemperatureReceived(intent.getByteArrayExtra(CustomIntent.TEMPERATURE_RECEIVED_EXTRA));
-            break;
-
-          case CustomIntent.TEMPERATURE_FAILED:
-            stop(StopReason.TEMPERATURE_READ_FAILED);
-            break;
-
-          case CustomIntent.SET_DUTY_CYCLE_FAILED:
-            stop(StopReason.SET_DUTY_CYCLE_FAILED);
             break;
         }
       }
@@ -225,7 +214,7 @@ public class ReflowJob {
     Intent intent;
 
     intent=new Intent(CustomIntent.REFLOW_STOPPED);
-    intent.putExtra(CustomIntent.REFLOW_STOPPED_EXTRA,reason.ordinal());
+    intent.putExtra(CustomIntent.REFLOW_STOPPED_EXTRA, reason.ordinal());
 
     _app.sendBroadcast(intent);
   }
@@ -359,10 +348,41 @@ public class ReflowJob {
 
   protected void onTemperatureReceived(byte[] response) {
 
+    Intent intent;
+    String reason;
+
     if(response[2]==1)
       _lastTemperature=response[0] & 0xff | ((response[1] << 8) & 0xff00);
-    else
-      stop(StopReason.TEMPERATURE_SENSOR_FAILED);
+    else {
+
+      // create a message containing the fault string
+
+      intent=new Intent(CustomIntent.TEMPERATURE_FAILED);
+
+      switch(response[2]) {
+
+        case 2:
+          reason=_app.getResources().getString(R.string.vcc_short_fault);
+          break;
+
+        case 3:
+          reason=_app.getResources().getString(R.string.gnd_short_fault);
+          break;
+
+        case 4:
+          reason=_app.getResources().getString(R.string.oc_fault);
+          break;
+
+        default:
+          reason=_app.getResources().getString(R.string.unknown_fault);
+          break;
+      }
+
+      // send the message
+
+      intent.putExtra(CustomIntent.TEMPERATURE_FAILED_EXTRA,reason);
+      _app.sendBroadcast(intent);
+    }
   }
 
 
