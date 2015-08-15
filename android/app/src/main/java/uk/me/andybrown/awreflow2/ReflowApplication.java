@@ -31,7 +31,7 @@ public class ReflowApplication extends Application implements Runnable {
   private static final byte ACK = 0;
 
   private static final int LINK_CHECK_INTERVAL = 3000;
-  private static final int REFLOW_GET_TEMPERATURE_INTERVAL = 250;
+  private static final int REFLOW_GET_TEMPERATURE_INTERVAL = 300;
   private static final int NON_REFLOW_GET_TEMPERATURE_INTERVAL = 2000;
 
   /*
