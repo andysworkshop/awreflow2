@@ -184,20 +184,18 @@ namespace awreflow {
 
   inline void Nokia5110::writeLargeSignedNumber(uint8_t x,uint8_t y,int16_t number) {
 
-    uint8_t offset;
-
     // deal with the sign first
 
     if(number<0) {
       writeLargeDigit(x,y,13);      // minus sign
-      offset=12;
+      number=-number;
     }
     else
-      offset=0;
+      writeLargeDigit(x,y,10);      // space
 
     // carry on to write the number
     
-    writeLargeNumber(x+offset,y,number);
+    writeLargeNumber(x+12,y,number);
   }
 
 

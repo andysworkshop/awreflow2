@@ -32,7 +32,7 @@ namespace awreflow {
 
   const char SelectingModeString1[] PROGMEM = "Reflow";
   const char SelectingModeString2[] PROGMEM = "PID";
-  const char SelectingModeString3[] PROGMEM = "Calibrate oven";
+  const char SelectingModeString3[] PROGMEM = "Temp offset";
   const char SelectingModeString4[] PROGMEM = "LCD";
 
   PGM_P const SelectingModeStringTable[4] PROGMEM = {

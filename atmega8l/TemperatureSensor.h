@@ -124,6 +124,8 @@ namespace awreflow {
 
   inline void TemperatureSensor::processResponse(uint32_t value) {
 
+    int8_t offset;
+
     // we need a sane compiler
 
     static_assert(sizeof(Response)==3,"Internal compiler fail: sizeof(Response)!=3");
@@ -148,9 +150,15 @@ namespace awreflow {
       _lastTemperature.celsius=value/4;
       _lastTemperature.status=Status::OK;
 
-      // add on the constant user-defined offset
+      // add on the constant user-defined offset. floor the temperature reading
+      // at zero degrees C.
 
-      _lastTemperature.celsius+=Eeprom::Reader::sensorOffset();
+      offset=Eeprom::Reader::sensorOffset();
+      
+      if(offset>=0 || -offset<=_lastTemperature.celsius)
+        _lastTemperature.celsius+=offset;
+      else
+        _lastTemperature.celsius=0;
     } 
   }
 }
