@@ -215,7 +215,7 @@ public class MainActivity extends BluetoothActivity {
     // the PID values are floats with no decimal places on show
 
     p=(int)prefs.getFloat(PreferenceStrings.PREFS_PROPORTIONAL,1.0f);
-    i=(int)prefs.getFloat(PreferenceStrings.PREFS_INTEGER,1.0f);
+    i=(int)prefs.getFloat(PreferenceStrings.PREFS_INTEGRAL,1.0f);
     d=(int)prefs.getFloat(PreferenceStrings.PREFS_DERIVATIVE,1.0f);
 
     str=String.format(res.getString(R.string.parameters_text),p,i,d);
@@ -225,7 +225,7 @@ public class MainActivity extends BluetoothActivity {
     // and on the editor...
 
     ((TextView)findViewById(R.id.proportional_value)).setText(Integer.toString(p));
-    ((TextView)findViewById(R.id.integer_value)).setText(Integer.toString(i));
+    ((TextView)findViewById(R.id.integral_value)).setText(Integer.toString(i));
     ((TextView)findViewById(R.id.derivative_value)).setText(Integer.toString(d));
   }
 
@@ -401,16 +401,16 @@ public class MainActivity extends BluetoothActivity {
 
 
   /*
-   * Integer clicked
+   * Integral clicked
    */
 
-  public void onClickInteger(View v) {
+  public void onClickIntegral(View v) {
 
     NumberPickerDialog npd;
 
     _parametersTimer.cancel();
 
-    npd=new NumberPickerDialog(this,PreferenceStrings.PREFS_INTEGER,R.string.integer) {
+    npd=new NumberPickerDialog(this,PreferenceStrings.PREFS_INTEGRAL,R.string.integral) {
       @Override
       protected void onClose(boolean ok) {
 

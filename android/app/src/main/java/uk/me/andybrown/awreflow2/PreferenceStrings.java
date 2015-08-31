@@ -17,7 +17,7 @@ class PreferenceStrings {
 
   protected static final String PREFS_LEADED = "PREFS_LEADED";
   protected static final String PREFS_PROPORTIONAL = "PREFS_PROPORTIONAL";
-  protected static final String PREFS_INTEGER = "PREFS_INTEGER";
+  protected static final String PREFS_INTEGRAL = "PREFS_INTEGRAL";
   protected static final String PREFS_DERIVATIVE = "PREFS_DERIVATIVE";
   protected static final String PREFS_TRACKING = "PREFS_TRACKING";
 }

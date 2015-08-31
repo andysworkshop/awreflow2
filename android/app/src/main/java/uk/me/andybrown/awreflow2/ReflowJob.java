@@ -142,7 +142,7 @@ public class ReflowJob {
     // get P/I/D constants
 
     p=prefs.getFloat(PreferenceStrings.PREFS_PROPORTIONAL,1.0f);
-    i=prefs.getFloat(PreferenceStrings.PREFS_INTEGER,1.0f);
+    i=prefs.getFloat(PreferenceStrings.PREFS_INTEGRAL,1.0f);
     d=prefs.getFloat(PreferenceStrings.PREFS_DERIVATIVE,1.0f);
 
     // initialise PID algorithm
