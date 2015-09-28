@@ -99,7 +99,7 @@ env.Command("awreflow2.lst",elf,"avr-objdump -S $SOURCE > $TARGET")
 # upload target uses avrdude
 
 flash_cmd="avrdude -c usbasp -p m8 -e -U flash:w:awreflow2.hex"
-fuse_cmd="avrdude -c usbasp -p m8 -e -U lfuse:w:0xD2:m -U lfuse:w:0xff:m -U hfuse:w:0xd9:m"
+fuse_cmd="avrdude -c usbasp -p m8 -e -U lfuse:w:0xff:m -U hfuse:w:0xd9:m"
 
 upload=env.Alias("upload","awreflow2.hex",flash_cmd)
 fuse=env.Alias("fuse","awreflow2.hex",fuse_cmd)
