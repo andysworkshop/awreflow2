@@ -3,10 +3,13 @@ package uk.me.andybrown.awreflow2;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -62,7 +65,10 @@ public class SettingsDialog {
   protected void setListeners(Dialog dlg) {
 
     final SeekBar brightness,contrast,offset;
+    final EditText deviceNameEditor;
+    final SharedPreferences prefs;
     Button transmit;
+    String deviceName;
 
     // set the initial values
 
@@ -70,21 +76,30 @@ public class SettingsDialog {
     contrast=(SeekBar)dlg.findViewById(R.id.contrast_slider);
     offset=(SeekBar)dlg.findViewById(R.id.sensor_offset_slider);
 
-    offset.setMax(99+99);       // range is -99 to +99
+    offset.setMax(99 + 99);       // range is -99 to +99
     contrast.setMax(100);
     brightness.setMax(100);
 
     brightness.setProgress(_mainActivity.getLcdBacklight());
     contrast.setProgress(_mainActivity.getLcdContrast());
-    offset.setProgress(_mainActivity.getSensorOffset()+99);   // bump up to positive
+    offset.setProgress(_mainActivity.getSensorOffset() + 99);   // bump up to positive
 
     ((TextView)dlg.findViewById(R.id.backlight_value)).setText(Integer.toString(_mainActivity.getLcdBacklight()));
     ((TextView)dlg.findViewById(R.id.contrast_value)).setText(Integer.toString(_mainActivity.getLcdContrast()));
     ((TextView)dlg.findViewById(R.id.sensor_offset_value)).setText(Integer.toString(_mainActivity.getSensorOffset()));
 
-    linkSlider(dlg,brightness,R.id.backlight_value,0);
-    linkSlider(dlg,contrast,R.id.contrast_value,0);
+    linkSlider(dlg, brightness, R.id.backlight_value, 0);
+    linkSlider(dlg, contrast, R.id.contrast_value, 0);
     linkSlider(dlg,offset,R.id.sensor_offset_value,99);
+
+    // device name setup
+
+    prefs=PreferenceManager.getDefaultSharedPreferences(_mainActivity);
+    deviceName=prefs.getString(PreferenceStrings.PREFS_DEVICE_NAME,PreferenceStrings.DEFAULT_DEVICE_NAME);
+    deviceNameEditor=((EditText)dlg.findViewById(R.id.device_name_editor));
+    deviceNameEditor.setText(deviceName);
+
+    // transmit button setup
 
     transmit=(Button)dlg.findViewById(R.id.transmit_button);
     transmit.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +110,12 @@ public class SettingsDialog {
         int b,c,o;
         byte[] data;
         Intent intent;
+        String deviceName;
+
+        // save the device name
+
+        deviceName=deviceNameEditor.getText().toString();
+        prefs.edit().putString(PreferenceStrings.PREFS_DEVICE_NAME,deviceName).commit();
 
         // get the values
 

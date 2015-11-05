@@ -12,6 +12,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.IOException;
@@ -25,8 +27,6 @@ import java.lang.reflect.Method;
  */
 
 public class ReflowApplication extends Application implements Runnable {
-
-  protected static final String OVEN_DEVICE_NAME = "HC-06";
 
   private static final byte ACK = 0;
 
@@ -549,10 +549,18 @@ public class ReflowApplication extends Application implements Runnable {
 
   protected BluetoothDevice getPairedDevice() {
 
+    SharedPreferences prefs;
+    String deviceName;
+
+    // get the device name from the preferences object or default to HC-06
+
+    prefs= PreferenceManager.getDefaultSharedPreferences(this);
+    deviceName=prefs.getString(PreferenceStrings.PREFS_DEVICE_NAME,PreferenceStrings.DEFAULT_DEVICE_NAME);
+
     if(_bluetoothAdapter!=null) {
 
       for(BluetoothDevice device : _bluetoothAdapter.getBondedDevices())
-        if(device.getName().equals(OVEN_DEVICE_NAME))
+        if(device.getName().equals(deviceName))
           return device;
 
     }

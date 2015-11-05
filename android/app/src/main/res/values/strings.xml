@@ -43,6 +43,7 @@
   <string name="backlight_label">LCD backlight</string>
   <string name="contrast_label">LCD contrast</string>
   <string name="sensor_offset_label">Temperature sensor offset</string>
+  <string name="device_name_label">Device name</string>
   <string name="transmit">Transmit</string>
 
   <string name="vcc_short_fault">short to VCC</string>

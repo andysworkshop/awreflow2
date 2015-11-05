@@ -20,4 +20,7 @@ class PreferenceStrings {
   protected static final String PREFS_INTEGRAL = "PREFS_INTEGRAL";
   protected static final String PREFS_DERIVATIVE = "PREFS_DERIVATIVE";
   protected static final String PREFS_TRACKING = "PREFS_TRACKING";
+  protected static final String PREFS_DEVICE_NAME = "PREFS_DEVICE_NAME";
+
+  protected static final String DEFAULT_DEVICE_NAME = "HC-06";
 }
