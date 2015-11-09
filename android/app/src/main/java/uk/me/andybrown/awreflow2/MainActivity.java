@@ -276,7 +276,7 @@ public class MainActivity extends BluetoothActivity {
    * Check if settings have been read from the controller
    */
 
-  protected boolean hasSettings() {
+  public boolean hasSettings() {
     return _sensorOffset!=-999;
   }
 
@@ -538,13 +538,6 @@ public class MainActivity extends BluetoothActivity {
   public void onClickSettings(View v) {
 
     SettingsDialog dlg;
-
-    // can't do this if settings have not been read from the controller
-
-    if(!hasSettings()) {
-      Toast.makeText(getApplicationContext(),getResources().getString(R.string.settings_unread_text),Toast.LENGTH_LONG).show();
-      return;
-    }
 
     dlg=new SettingsDialog(this);
     dlg.show();

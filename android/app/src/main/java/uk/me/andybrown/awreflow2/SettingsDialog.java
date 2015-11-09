@@ -62,35 +62,49 @@ public class SettingsDialog {
    * Set up the change listeners
    */
 
-  protected void setListeners(Dialog dlg) {
+  protected void setListeners(final Dialog dlg) {
 
     final SeekBar brightness,contrast,offset;
     final EditText deviceNameEditor;
     final SharedPreferences prefs;
+    final View remoteSettings;
     Button transmit;
     String deviceName;
 
-    // set the initial values
+    remoteSettings=dlg.findViewById(R.id.remoteSettings);
 
-    brightness=(SeekBar)dlg.findViewById(R.id.backlight_slider);
-    contrast=(SeekBar)dlg.findViewById(R.id.contrast_slider);
-    offset=(SeekBar)dlg.findViewById(R.id.sensor_offset_slider);
+    if(_mainActivity.hasSettings()) {
 
-    offset.setMax(99 + 99);       // range is -99 to +99
-    contrast.setMax(100);
-    brightness.setMax(100);
+      // set the initial values
 
-    brightness.setProgress(_mainActivity.getLcdBacklight());
-    contrast.setProgress(_mainActivity.getLcdContrast());
-    offset.setProgress(_mainActivity.getSensorOffset() + 99);   // bump up to positive
+      brightness=(SeekBar)dlg.findViewById(R.id.backlight_slider);
+      contrast=(SeekBar)dlg.findViewById(R.id.contrast_slider);
+      offset=(SeekBar)dlg.findViewById(R.id.sensor_offset_slider);
 
-    ((TextView)dlg.findViewById(R.id.backlight_value)).setText(Integer.toString(_mainActivity.getLcdBacklight()));
-    ((TextView)dlg.findViewById(R.id.contrast_value)).setText(Integer.toString(_mainActivity.getLcdContrast()));
-    ((TextView)dlg.findViewById(R.id.sensor_offset_value)).setText(Integer.toString(_mainActivity.getSensorOffset()));
+      offset.setMax(99 + 99);       // range is -99 to +99
+      contrast.setMax(100);
+      brightness.setMax(100);
 
-    linkSlider(dlg, brightness, R.id.backlight_value, 0);
-    linkSlider(dlg, contrast, R.id.contrast_value, 0);
-    linkSlider(dlg,offset,R.id.sensor_offset_value,99);
+      brightness.setProgress(_mainActivity.getLcdBacklight());
+      contrast.setProgress(_mainActivity.getLcdContrast());
+      offset.setProgress(_mainActivity.getSensorOffset() + 99);   // bump up to positive
+
+      ((TextView)dlg.findViewById(R.id.backlight_value)).setText(Integer.toString(_mainActivity.getLcdBacklight()));
+      ((TextView)dlg.findViewById(R.id.contrast_value)).setText(Integer.toString(_mainActivity.getLcdContrast()));
+      ((TextView)dlg.findViewById(R.id.sensor_offset_value)).setText(Integer.toString(_mainActivity.getSensorOffset()));
+
+      linkSlider(dlg, brightness, R.id.backlight_value, 0);
+      linkSlider(dlg, contrast, R.id.contrast_value, 0);
+      linkSlider(dlg,offset,R.id.sensor_offset_value,99);
+
+      // show remote settings
+
+      remoteSettings.setVisibility(View.VISIBLE);
+    }
+    else {
+      remoteSettings.setVisibility(View.GONE);   // hide remote settings
+      brightness=contrast=offset=null;
+    }
 
     // device name setup
 
@@ -107,7 +121,7 @@ public class SettingsDialog {
       @Override
       public void onClick(View v) {
 
-        int b,c,o;
+        int b, c, o;
         byte[] data;
         Intent intent;
         String deviceName;
@@ -115,28 +129,40 @@ public class SettingsDialog {
         // save the device name
 
         deviceName=deviceNameEditor.getText().toString();
-        prefs.edit().putString(PreferenceStrings.PREFS_DEVICE_NAME,deviceName).commit();
+        prefs.edit().putString(PreferenceStrings.PREFS_DEVICE_NAME, deviceName).commit();
 
-        // get the values
+        // if remote settings are visible then notify the changes
 
-        b=brightness.getProgress();
-        c=contrast.getProgress();
-        o=offset.getProgress()-99;
+        if(remoteSettings.getVisibility()==View.VISIBLE) {
 
-        // serialize the payload
+          // get the values
 
-        data=new byte[3];
+          b = brightness.getProgress();
+          c = contrast.getProgress();
+          o = offset.getProgress() - 99;
 
-        data[0]=(byte)o;      // all values are 7-bit
-        data[1]=(byte)b;
-        data[2]=(byte)c;
+          // serialize the payload
 
-        // send the intent
+          data = new byte[3];
 
-        intent=new Intent(CustomIntent.SET_CONTROLLER_SETTINGS);
-        intent.putExtra(CustomIntent.CONTROLLER_SETTINGS_EXTRA,data);
+          data[0] = (byte) o;      // all values are 7-bit
+          data[1] = (byte) b;
+          data[2] = (byte) c;
 
-        _mainActivity.sendBroadcast(intent);
+          // send the intent
+
+          intent = new Intent(CustomIntent.SET_CONTROLLER_SETTINGS);
+          intent.putExtra(CustomIntent.CONTROLLER_SETTINGS_EXTRA, data);
+
+          _mainActivity.sendBroadcast(intent);
+
+          // leave the dialog up for further edits
+        }
+        else {
+          // close the dialog
+
+          dlg.dismiss();
+        }
       }
     });
   }

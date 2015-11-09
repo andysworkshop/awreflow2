@@ -6,143 +6,150 @@
               android:padding="20dp"
               android:layout_height="fill_parent">
 
-  <!-- brightness -->
-
-  <TextView
-    android:id="@+id/backlight_label"
+  <LinearLayout
+    android:id="@+id/remoteSettings"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical"
-    android:text="@string/backlight_label"
-    />
+    android:orientation="vertical">
 
-  <View
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="@android:color/darker_gray"
-    />
-
-  <LinearLayout android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-    <ImageView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:padding="2dp"
-      android:src="@drawable/brightness"/>
-
-    <SeekBar
-      android:id="@+id/backlight_slider"
-      android:layout_width="300dp"
-      android:layout_weight="1"
-      android:max="100"
-      android:layout_height="wrap_content"
-      />
+    <!-- brightness -->
 
     <TextView
-      android:id="@+id/backlight_value"
+      android:id="@+id/backlight_label"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_weight="0"
-      android:layout_marginLeft="10dp"
       android:layout_gravity="center_vertical"
-      android:text="100"/>
-
-  </LinearLayout>
-
-  <!-- contrast -->
-
-  <TextView
-    android:id="@+id/contrast_label"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical"
-    android:layout_marginTop="10dp"
-    android:text="@string/contrast_label"
-    />
-
-  <View
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="@android:color/darker_gray"
-    />
-
-  <LinearLayout android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                >
-    <ImageView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:padding="5dp"
-      android:src="@drawable/contrast"/>
-
-    <SeekBar
-      android:id="@+id/contrast_slider"
-      android:layout_width="300dp"
-      android:layout_weight="1"
-      android:layout_height="wrap_content"
-      android:max="127"
+      android:text="@string/backlight_label"
       />
 
-    <TextView
-      android:id="@+id/contrast_value"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_weight="0"
-      android:layout_marginLeft="10dp"
-      android:layout_gravity="center_vertical"
-      android:text="100"/>
-
-  </LinearLayout>
-
-  <!-- sensor offset -->
-
-  <TextView
-    android:id="@+id/sensor_offset_label"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical"
-    android:layout_marginTop="10dp"
-    android:text="@string/sensor_offset_label"/>
-
-  <View
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="@android:color/darker_gray"
-    />
-
-  <LinearLayout android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                >
-
-    <ImageView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:padding="4dp"
-      android:src="@drawable/oven_zero"/>
-
-    <SeekBar
-      android:id="@+id/sensor_offset_slider"
-      android:layout_width="300dp"
-      android:layout_weight="1"
-      android:layout_height="wrap_content"
+    <View
+      android:layout_width="fill_parent"
+      android:layout_height="1dp"
+      android:background="@android:color/darker_gray"
       />
 
+    <LinearLayout android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:layout_marginTop="5dp"
+                  android:orientation="horizontal">
+
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="2dp"
+        android:src="@drawable/brightness"/>
+
+      <SeekBar
+        android:id="@+id/backlight_slider"
+        android:layout_width="300dp"
+        android:layout_weight="1"
+        android:max="100"
+        android:layout_height="wrap_content"
+        />
+
+      <TextView
+        android:id="@+id/backlight_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical"
+        android:text="100"/>
+
+    </LinearLayout>
+
+    <!-- contrast -->
+
     <TextView
-      android:id="@+id/sensor_offset_value"
+      android:id="@+id/contrast_label"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_weight="0"
-      android:layout_marginLeft="10dp"
       android:layout_gravity="center_vertical"
-      android:text="-99"/>
+      android:layout_marginTop="10dp"
+      android:text="@string/contrast_label"
+      />
 
+    <View
+      android:layout_width="fill_parent"
+      android:layout_height="1dp"
+      android:background="@android:color/darker_gray"
+      />
+
+    <LinearLayout android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_marginTop="5dp"
+                  >
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:src="@drawable/contrast"/>
+
+      <SeekBar
+        android:id="@+id/contrast_slider"
+        android:layout_width="300dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:max="127"
+        />
+
+      <TextView
+        android:id="@+id/contrast_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical"
+        android:text="100"/>
+
+    </LinearLayout>
+
+    <!-- sensor offset -->
+
+    <TextView
+      android:id="@+id/sensor_offset_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginTop="10dp"
+      android:text="@string/sensor_offset_label"/>
+
+    <View
+      android:layout_width="fill_parent"
+      android:layout_height="1dp"
+      android:background="@android:color/darker_gray"
+      />
+
+    <LinearLayout android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_marginTop="5dp"
+                  >
+
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:src="@drawable/oven_zero"/>
+
+      <SeekBar
+        android:id="@+id/sensor_offset_slider"
+        android:layout_width="300dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        />
+
+      <TextView
+        android:id="@+id/sensor_offset_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical"
+        android:text="-99"/>
+
+    </LinearLayout>
   </LinearLayout>
 
   <!-- bluetooth device name -->
@@ -179,7 +186,6 @@
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:maxLength="248"
-      android:maxLines="1"
       android:text="HC-06"
       />
 

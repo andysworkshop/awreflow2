@@ -18,7 +18,7 @@
   <string name="parameters_text">Change the proportional, integral and derivative co-efficients. Currently %1$d, %2$d and %3$d.</string>
   <string name="settings_title">Settings</string>
   <string name="settings_text">Set the sensor offset (%1$d), LCD backlight (%2$d) and contrast (%3$d).</string>
-  <string name="settings_unavailable">Setting unavailable until bluetooth link established.</string>
+  <string name="settings_unavailable">Change the bluetooth device name.</string>
   <string name="proportional">Proportional</string>
   <string name="integral">Integral</string>
   <string name="derivative">Derivative</string>
@@ -28,7 +28,6 @@
   <string name="change_value">Enter a new value:</string>
   <string name="ready_reflow_message">Ensure that you\'ve got a reliable bluetooth link and then tap OK to start immediately.</string>
   <string name="ready_reflow_title">Ready to reflow</string>
-  <string name="settings_unread_text">Settings have not been read from the controller.</string>
   <string name="go_title">Start</string>
   <string name="stop_title">Stop</string>
   <string name="exit_title">Back</string>
@@ -44,7 +43,7 @@
   <string name="contrast_label">LCD contrast</string>
   <string name="sensor_offset_label">Temperature sensor offset</string>
   <string name="device_name_label">Device name</string>
-  <string name="transmit">Transmit</string>
+  <string name="transmit">Save</string>
 
   <string name="vcc_short_fault">short to VCC</string>
   <string name="gnd_short_fault">short to GND</string>
