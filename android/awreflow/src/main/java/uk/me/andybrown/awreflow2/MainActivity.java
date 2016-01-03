@@ -14,14 +14,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -59,11 +60,24 @@ public class MainActivity extends BluetoothActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
 
+    String title;
+    PackageInfo pInfo;
+
     super.onCreate(savedInstanceState);
 
     requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
     setContentView(R.layout.activity_main);
     getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.window_title);
+
+    // set the custom title
+
+    try {
+      pInfo=getPackageManager().getPackageInfo(getPackageName(),0);
+      title=getResources().getString(R.string.app_name)+" v"+pInfo.versionName;
+      ((TextView)findViewById(R.id.activityTitleText)).setText(title);
+    }
+    catch(Exception ex) {
+    }
 
     // cache the values required for animation
 
@@ -778,6 +792,16 @@ public class MainActivity extends BluetoothActivity {
     });
   }
 
+
+  /*
+   * Logo clicked
+   */
+
+  public void onClickLogo(View v) {
+
+    Intent browserIntent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://andybrown.me.uk"));
+    startActivity(browserIntent);
+  }
 
   public int getLcdBacklight() { return _lcdBacklight; }
   public int getLcdContrast() { return _lcdContrast; }

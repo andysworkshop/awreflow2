@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -42,6 +44,9 @@ public class ReflowActivity extends BluetoothActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
 
+    String title;
+    PackageInfo pInfo;
+
     // call the base
 
     super.onCreate(savedInstanceState);
@@ -50,7 +55,15 @@ public class ReflowActivity extends BluetoothActivity {
 
     requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
     setContentView(R.layout.activity_reflow);
-    getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+    getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.window_title);
+
+    try {
+      pInfo=getPackageManager().getPackageInfo(getPackageName(),0);
+      title=getResources().getString(R.string.app_name)+" v"+pInfo.versionName;
+      ((TextView)findViewById(R.id.activityTitleText)).setText(title);
+    }
+    catch(Exception ex) {
+    }
 
     // create the broadcast receiver for bluetooth events
 
