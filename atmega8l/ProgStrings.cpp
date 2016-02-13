@@ -30,9 +30,9 @@ namespace awreflow {
    * Constant string arrays for the mode selection
    */
 
-  const char SelectingModeString1[] PROGMEM = "Reflow";
+  const char SelectingModeString1[] PROGMEM = "REFLOW";
   const char SelectingModeString2[] PROGMEM = "PID";
-  const char SelectingModeString3[] PROGMEM = "Temp offset";
+  const char SelectingModeString3[] PROGMEM = "TEMP OFFSET";
   const char SelectingModeString4[] PROGMEM = "LCD";
 
   PGM_P const SelectingModeStringTable[4] PROGMEM = {
@@ -47,8 +47,8 @@ namespace awreflow {
    * Constant string arrays for the profile selection
    */
 
-  const char SelectingProfileString1[] PROGMEM = "Leaded";
-  const char SelectingProfileString2[] PROGMEM = "Lead free";
+  const char SelectingProfileString1[] PROGMEM = "LEADED";
+  const char SelectingProfileString2[] PROGMEM = "LEAD FREE";
 
   PGM_P const SelectingProfileStringTable[2] PROGMEM = {
     SelectingProfileString1,
@@ -60,8 +60,8 @@ namespace awreflow {
    * Constant string arrays for the reflow ready selection
    */
 
-  const char ReflowReadyString1[] PROGMEM = "Reflow now";
-  const char ReflowReadyString2[] PROGMEM = "Cancel";
+  const char ReflowReadyString1[] PROGMEM = "REFLOW NOW";
+  const char ReflowReadyString2[] PROGMEM = "CANCEL";
 
   PGM_P const ReflowReadyStringTable[2] PROGMEM = {
     ReflowReadyString1,
@@ -73,8 +73,8 @@ namespace awreflow {
    * Constant string arrays for the remoting status
    */
 
-  const char RemotingStatus1[] PROGMEM = "No bluetooth ";
-  const char RemotingStatus2[] PROGMEM = "Communicating";
+  const char RemotingStatus1[] PROGMEM = "NO BLUETOOTH ";
+  const char RemotingStatus2[] PROGMEM = "COMMUNICATING";
 
   PGM_P const RemotingStatusStringTable[2] PROGMEM = {
     RemotingStatus1,
@@ -86,8 +86,8 @@ namespace awreflow {
    * Constant strings for the LCD options
    */
 
-  const char LcdOptions1[] PROGMEM = "Backlight";
-  const char LcdOptions2[] PROGMEM = "Contrast";
+  const char LcdOptions1[] PROGMEM = "BACKLIGHT";
+  const char LcdOptions2[] PROGMEM = "CONTRAST";
 
   PGM_P const LcdOptionsStringTable[2] PROGMEM = {
     LcdOptions1,

@@ -29,8 +29,8 @@ namespace awreflow {
       ReflowProfile _profile;
       
       Pid _pid;
-      int16_t _desiredTemperature;
-      int16_t _temperatureStep;
+      Pid::pid_variable_t _desiredTemperature;
+      Pid::pid_variable_t _temperatureStep;
 
       uint16_t _currentTime;
       uint16_t _currentRegion;

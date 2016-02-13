@@ -61,7 +61,7 @@ namespace awreflow {
 
     itoa(currentTime,buffer,10);
     for(ptr=buffer;*ptr;ptr++);
-    *ptr++='s';
+    *ptr++='S';
     ptr++;
     itoa(desiredTemperature,ptr,10);
     for(;*ptr;ptr++);
