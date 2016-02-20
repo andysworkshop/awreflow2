@@ -26,7 +26,7 @@ namespace awreflow {
     protected:
       void processNextCommand();
       void readSettings() const;
-      bool setDutyCycleCommand(uint8_t dutyCycle) const;
+      bool setDutyCycleCommand(uint8_t dutyCycle);
       bool setSensorOffset(int8_t offset) const;
       bool setLcdBacklight(uint8_t backlight) const;
       bool setLcdContrast(uint8_t contrast) const;
@@ -175,7 +175,7 @@ namespace awreflow {
    * Read and set a new duty cycle
    */
 
-  inline bool RemotingHandler::setDutyCycleCommand(uint8_t dutyCycle) const {
+  inline bool RemotingHandler::setDutyCycleCommand(uint8_t dutyCycle) {
 
     // ACK if in range otherwise NACK 
 
@@ -183,6 +183,7 @@ namespace awreflow {
       return false;
     else {
       _oven.setDutyCycle(dutyCycle);
+      _display._uiDutyCycle=dutyCycle;
       return true;
     }
   }

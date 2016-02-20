@@ -53,26 +53,20 @@ namespace awreflow {
 
   inline void UiReflowingDisplay::setStatus(uint16_t currentTime,int16_t desiredTemperature,uint8_t dutyCycle) const {
 
-    char buffer[15],*ptr;
+    char buffer[15];
 
-    memset(buffer,' ',14);
+    // format the display: "nnnS mmmC nnn%"
 
-    // format the display: "nnnS mmmC"
-
-    itoa(currentTime,buffer,10);
-    for(ptr=buffer;*ptr;ptr++);
-    *ptr++='S';
-    ptr++;
-    itoa(desiredTemperature,ptr,10);
-    for(;*ptr;ptr++);
-    *ptr++='C';
-    ptr++;
-    itoa(dutyCycle,ptr,10);
-    for(;*ptr;ptr++);
-    *ptr++='%';
-
+    utils::write3digits(currentTime,buffer);
+    buffer[3]='S';
+    buffer[4]=' ';
+    utils::write3digits(desiredTemperature,buffer+5);
+    buffer[8]='C';
+    buffer[9]=' ';
+    utils::write3digits(dutyCycle,buffer+10);
+    buffer[13]='%';
     buffer[14]='\0';
-    
+
     Nokia5110::writeString(0,5,buffer,false);
   }
 }

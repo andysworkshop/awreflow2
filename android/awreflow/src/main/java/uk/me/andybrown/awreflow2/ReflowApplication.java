@@ -50,6 +50,7 @@ public class ReflowApplication extends Application implements Runnable {
   volatile protected LinkStatus _linkStatus;
   volatile protected ReflowJob _reflowJob;
   volatile protected int _setPercent;
+  volatile protected int _lastSetPercent;
   volatile protected byte[] _newSettings;
 
 
@@ -68,7 +69,7 @@ public class ReflowApplication extends Application implements Runnable {
 
     // set members
 
-    _setPercent=-1;
+    _setPercent=_lastSetPercent=-1;
 
     ifilter=new IntentFilter();
     ifilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
@@ -166,17 +167,14 @@ public class ReflowApplication extends Application implements Runnable {
         // if there's a new temperature to set, do it
 
         percent=_setPercent;
-        if(percent!=-1) {
+        if(percent!=-1 && percent!=_lastSetPercent) {
 
           setDutyCycleCommand(percent);
 
           // if the desired temperature has not changed then clear it out
           // to prevent re-sending the same value
 
-          synchronized(this) {
-            if(percent==_setPercent)
-              _setPercent=-1;
-          }
+          _lastSetPercent=percent;
 
           // the duy cycle response includes the last temperature
 
@@ -574,10 +572,7 @@ public class ReflowApplication extends Application implements Runnable {
    */
 
   public void onSetDutyCycle(int percent) {
-
-    synchronized(this) {
-      _setPercent=percent;
-    }
+    _setPercent=percent;
   }
 
 

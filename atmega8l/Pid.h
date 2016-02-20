@@ -65,7 +65,7 @@ namespace awreflow {
     // update the integral (historical error)
 
     _integral+=error;
-    _integral=max(min((pid_variable_t)100,_integral),(pid_variable_t)0);
+    _integral=utils::max(utils::min((pid_variable_t)100,_integral),(pid_variable_t)0);
 
     // the derivative term
 
@@ -74,7 +74,7 @@ namespace awreflow {
     // calculate the control variable
 
     pwm=(_kp*error)+(_ki*_integral)+(_kd*derivative);
-    pwm=max(min((pid_variable_t)100,pwm),(pid_variable_t)0);
+    pwm=utils::max(utils::min((pid_variable_t)100,pwm),(pid_variable_t)0);
 
     // save the last error
 

@@ -15,7 +15,9 @@ namespace awreflow {
    * to indicate that we are remoting
    */
 
-  struct UiRemotingDisplay : UiBannerComponent, UiTemperatureComponent, UiStatusComponent {
+  struct UiRemotingDisplay : UiBannerComponent, UiTemperatureComponent {
+
+    uint8_t _uiDutyCycle;
 
     /*
      * String table indexes
@@ -38,7 +40,7 @@ namespace awreflow {
   inline UiRemotingDisplay::UiRemotingDisplay(TemperatureSensor& temperatureSensor)
     : UiBannerComponent(RemotingString),
       UiTemperatureComponent(temperatureSensor),
-      UiStatusComponent(RemotingStatusStringTable) {
+      _uiDutyCycle(0) {
   }
 
 
@@ -46,14 +48,34 @@ namespace awreflow {
    * Main loop
    */
 
+
+  /*
+   * Update the display. This is called once per second during reflow
+   */
+
   inline void UiRemotingDisplay::loop(bool activeCommands) {
 
-    // the temperature display needs to be updated
+    char buffer[15];
 
     UiTemperatureComponent::loop();
 
-    // update the status display
+    // format the display: "NO LINK / OVEN xxx%""
 
-    UiStatusComponent::loop(activeCommands ? COMMUNICATING_INDEX : NO_BLUETOOTH_INDEX);
+    if(activeCommands) {
+
+      buffer[0]='O';
+      buffer[1]='V';
+      buffer[2]='E';
+      buffer[3]='N';
+      buffer[4]=' ';
+
+      utils::write3digits(_uiDutyCycle,buffer+5);
+      buffer[8]='%';
+      buffer[9]='\0';
+    }
+    else
+      strcpy_P(buffer,NoBluetoothString);
+
+    Nokia5110::writeString(0,5,buffer,false);
   }
 }

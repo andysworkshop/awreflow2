@@ -107,7 +107,7 @@ namespace awreflow {
    */
 
   inline uint16_t Eeprom::Reader::validate(uint16_t value) {
-    return min<uint16_t>(999,value);
+    return utils::min<uint16_t>(999,value);
   }
 
 

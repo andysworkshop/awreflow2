@@ -14,6 +14,7 @@ namespace awreflow {
    */
 
   extern const char RemotingString[];
+  extern const char NoBluetoothString[];
   extern const char SelectingProfileString[];
   extern const char SelectingProportionalString[];
   extern const char SelectingIntegerString[];
@@ -34,6 +35,5 @@ namespace awreflow {
   extern PGM_P const SelectingModeStringTable[4];
   extern PGM_P const SelectingProfileStringTable[2];
   extern PGM_P const ReflowReadyStringTable[2];
-  extern PGM_P const RemotingStatusStringTable[2];
   extern PGM_P const LcdOptionsStringTable[2];
 }

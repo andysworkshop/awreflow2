@@ -69,13 +69,13 @@ env.Replace(CXXFLAGS=["-mmcu=atmega8",
                       "-Wextra",
                       "-pedantic-errors",
                       "-fno-rtti",
+                      "-mcall-prologues",
                       "-ffunction-sections",
                       "-fdata-sections",
                       "-fno-exceptions"])
 
 env.Replace(LINKFLAGS=["-Wl,-Map,awreflow2.map",
                        "-mrelax",
-                       "-g",
                        "-flto",
                        "-Wl,--gc-sections",
                        "-mmcu=atmega8"])

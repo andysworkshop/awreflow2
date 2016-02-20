@@ -41,6 +41,7 @@ namespace awreflow {
 
       static void clear();
       static void moveTo(uint8_t x,uint8_t y);
+      static void write3digits(uint16_t number,uint8_t *buffer);
       static void writeString_P(uint8_t x,uint8_t y,const char *str_p,bool inverted);
       static void writeString(uint8_t x,uint8_t y,const char *str,bool inverted);
       static void writeCharacter(uint8_t c,bool inverted);
@@ -205,7 +206,23 @@ namespace awreflow {
 
   inline void Nokia5110::writeLargeNumber(uint8_t x,uint8_t y,uint16_t number) {
 
-    uint8_t c,buffer[3];
+    uint8_t buffer[3];
+
+    write3digits(number,buffer);
+
+    writeLargeDigit(x,y,buffer[2]);
+    writeLargeDigit(x+12,y,buffer[1]);
+    writeLargeDigit(x+24,y,buffer[0]);
+  }
+
+
+  /*
+   * Write 3 digits to a buffer
+   */
+
+  inline void Nokia5110::write3digits(uint16_t number,uint8_t *buffer) {
+
+    uint8_t c;
 
     c=number/100;
     buffer[2]=c ? c : 10;
@@ -216,10 +233,6 @@ namespace awreflow {
     number%=10;
 
     buffer[0]=number;
-
-    writeLargeDigit(x,y,buffer[2]);
-    writeLargeDigit(x+12,y,buffer[1]);
-    writeLargeDigit(x+24,y,buffer[0]);
   }
 
 

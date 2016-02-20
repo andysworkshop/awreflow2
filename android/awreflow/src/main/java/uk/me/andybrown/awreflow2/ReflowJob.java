@@ -25,7 +25,7 @@ public class ReflowJob {
   public enum State {
     STARTED,
     STOPPED
-  };
+  }
 
 
   /*
@@ -46,7 +46,7 @@ public class ReflowJob {
     public int getStringId() {
       return _id;
     }
-  };
+  }
 
 
   protected State _state;
@@ -70,7 +70,7 @@ public class ReflowJob {
     // set variables
 
     _app=app;
-    _state=State.STOPPED;
+    setState(State.STOPPED);
 
     // create the broadcast receiver
 
@@ -168,7 +168,7 @@ public class ReflowJob {
     // initially paused
 
     _paused=true;
-    _state=State.STARTED;
+    setState(State.STARTED);
 
     // notify that we have started
 
@@ -193,7 +193,7 @@ public class ReflowJob {
 
     // set the stopped state to prevent the timer task from running again
 
-    _state=State.STOPPED;
+    setState(State.STOPPED);
 
     // stop the oven
 
@@ -214,7 +214,7 @@ public class ReflowJob {
     Intent intent;
 
     intent=new Intent(CustomIntent.REFLOW_STOPPED);
-    intent.putExtra(CustomIntent.REFLOW_STOPPED_EXTRA, reason.ordinal());
+    intent.putExtra(CustomIntent.REFLOW_STOPPED_EXTRA,reason.ordinal());
 
     _app.sendBroadcast(intent);
   }
@@ -243,57 +243,58 @@ public class ReflowJob {
     double desiredTemperature;
     byte percent;
 
-    // check the state
+    synchronized(this) {
 
-    if(_state!=State.STARTED)
-      return;
+      // check the state
 
-    // are we paused at T-0 ?
-
-    if(_paused) {
-
-      // if no temperature received yet then keep waiting
-
-      if(_lastTemperature==-1)
+      if(_state!=State.STARTED)
         return;
 
-      // we can unpause if the temperature at T-0 is at least 25
+      // are we paused at T-0 ?
 
-      if(_lastTemperature>=25) {
-        _startTime=System.currentTimeMillis();
-        _paused=false;
-      }
-      else
-        setDutyCycle(30);       // set the oven to 30% to slowly raise to 25C
-    }
-    else {
+      if(_paused) {
 
-      // get the number of whole seconds since we started
+        // if no temperature received yet then keep waiting
 
-      seconds=(int)(System.currentTimeMillis()-_startTime)/1000;
+        if(_lastTemperature==-1)
+          return;
 
-      // have we finished ?
+        // we can unpause if the temperature at T-0 is at least 25
 
-      if(seconds>=_points.length)
-        stop(StopReason.COMPLETED);
-      else {
+        if(_lastTemperature>=25) {
+          _startTime=System.currentTimeMillis();
+          _paused=false;
+        } else
+          setDutyCycle(30);       // set the oven to 30% to slowly raise to 25C
+      } else {
 
-        // get the desired temperature
+        // get the number of whole seconds since we started
 
-        desiredTemperature=_points[seconds];
+        seconds=(int)(System.currentTimeMillis()-_startTime)/1000;
 
-        // update the algorithm and get the oven duty cycle percent
+        // have we finished ?
 
-        percent=_pid.update(desiredTemperature,_lastTemperature);
+        if(seconds>=_points.length)
+          stop(StopReason.COMPLETED);
+        else {
 
-        // double check the state and set the duty cycle if not stopped
+          // get the desired temperature
 
-        if(_state==State.STARTED)
-          setDutyCycle(percent);
+          desiredTemperature=_points[seconds];
 
-        // notify the progress
+          // update the algorithm and get the oven duty cycle percent
 
-        notifyProgress(seconds);
+          percent=_pid.update(desiredTemperature,_lastTemperature);
+
+          // double check the state and set the duty cycle if not stopped
+
+          if(_state==State.STARTED)
+            setDutyCycle(percent);
+
+          // notify the progress
+
+          notifyProgress(seconds);
+        }
       }
     }
   }
@@ -392,5 +393,16 @@ public class ReflowJob {
 
   public State getState() {
     return _state;
+  }
+
+
+  /*
+   * Set a new state
+   */
+
+  public void setState(State newState) {
+    synchronized(this) {
+      _state=newState;
+    }
   }
 }

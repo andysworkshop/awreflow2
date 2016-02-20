@@ -91,7 +91,7 @@ namespace awreflow {
         if(movement<0 && -movement>static_cast<int16_t>(_value))
           _value=0;           // decrement would go below zero 
         else
-          _value=min<uint8_t>(_maxValue,_value+movement);
+          _value=utils::min<uint8_t>(_maxValue,_value+movement);
 
         // set the new value to the LCD
 

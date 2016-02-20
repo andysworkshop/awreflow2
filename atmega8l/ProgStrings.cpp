@@ -25,6 +25,8 @@ namespace awreflow {
   const char LcdOptionsString[] PROGMEM = " LCD OPTIONS  ";
   const char LcdBacklightString[] PROGMEM = "  BACKLIGHT   ";
   const char LcdContrastString[] PROGMEM = "   CONTRAST   ";
+  const char NoBluetoothString[] PROGMEM = "NO LINK       ";
+
 
   /*
    * Constant string arrays for the mode selection
@@ -68,18 +70,6 @@ namespace awreflow {
     ReflowReadyString2
   };
 
-
-  /*
-   * Constant string arrays for the remoting status
-   */
-
-  const char RemotingStatus1[] PROGMEM = "NO BLUETOOTH ";
-  const char RemotingStatus2[] PROGMEM = "COMMUNICATING";
-
-  PGM_P const RemotingStatusStringTable[2] PROGMEM = {
-    RemotingStatus1,
-    RemotingStatus2
-  };
 
 
   /*
